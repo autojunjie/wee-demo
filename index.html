@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weee! 华人生鲜第一站</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Weee! exact design tokens from enki-styles */
+  --weee-brand: #001ba5;          /* energy-blue-dark-4 (logo/brand) */
+  --weee-brand-dark: #000f5d;     /* energy-blue-dark-6 */
+  --weee-brand-hover: #0030ab;    /* energy-blue-dark-3 */
+  --weee-teal: #00b2ea;           /* flow-teal-base-4 (primary buttons/CTA) */
+  --weee-teal-hover: #009bcc;     /* flow-teal-base-7 */
+  --weee-teal-dark: #097b9e;      /* flow-teal-dark-3 */
+  --weee-blue: #027fff;           /* energy-blue-base-4 (links) */
+  --weee-red: #ec2e3d;            /* tomato-red-base-5 (tags) */
+  --weee-price-red: #b80617;      /* tomato-red-dark-1 (pricing) */
+  --weee-price-bg: #ec4143;       /* tomato-red-base-4 (pricing bg) */
+  --weee-red-light: #ffeded;      /* tomato-red-light-1 */
+  --weee-bg: #eef2fb;             /* shade-cool-light-2 (page & sidebar bg) */
+  --weee-white: #FFFFFF;
+  --weee-surface: #f6f9fc;        /* shade-cool-light-1 */
+  --weee-border: #e4eaf5;         /* shade-cool-light-4 (surface-100-hairline) */
+  --weee-border-light: #e8eef8;   /* shade-cool-light-3 */
+  --weee-border-sidebar: #b1d4fc; /* energy-blue-light-6 (sidebar hairline) */
+  --weee-text: #07101a;           /* shade-cool-dark-7 */
+  --weee-text-secondary: #52667d; /* shade-cool-base-7 (surface-100-fg-minor) */
+  --weee-text-muted: #758296;     /* shade-cool-base-5 */
+  --weee-text-subdued: #9299ae;   /* shade-cool-base-4 */
+  --sidebar-width: 230px;
+  --chat-width: 380px;
+  --topbar-height: 42px;
+  --navbar-height: 54px;
+  --subnav-height: 36px;
+  --sku-radius: 12px;
+  --grid-gap: 16px;
+}
+
+body {
+  font-family: 'Poppins', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--weee-bg);
+  color: var(--weee-text);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ===== Top Promo Bar ===== */
+.top-promo {
+  height: var(--topbar-height);
+  background: var(--weee-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #c6e5ff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  position: relative;
+}
+.top-promo b { color: #fff; }
+.top-promo .promo-cta {
+  background: var(--weee-teal);
+  color: #fff;
+  border: none;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+.top-promo .promo-cta:hover { background: var(--weee-teal-hover); }
+.top-promo .close-promo {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #ffffff50;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ===== Main Nav ===== */
+.main-nav {
+  height: var(--navbar-height);
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+}
+.logo {
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.logo img { height: 24px; }
+.search-bar {
+  flex: 1;
+  max-width: 560px;
+  height: 36px;
+  background: var(--weee-surface);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 8px;
+  border: 1.5px solid var(--weee-border);
+  transition: all 0.2s;
+}
+.search-bar:focus-within { border-color: var(--weee-teal); background: #fff; box-shadow: 0 0 0 3px rgba(0,178,234,0.12); }
+.search-bar svg { width: 16px; height: 16px; color: var(--weee-text-muted); flex-shrink: 0; }
+.search-bar input {
+  flex: 1; border: none; background: transparent; outline: none;
+  font-size: 14px; font-family: inherit; color: var(--weee-text);
+}
+.search-bar input::placeholder { color: var(--weee-text-subdued); }
+.nav-right {
+  display: flex; align-items: center; gap: 20px; flex-shrink: 0;
+}
+.nav-btn {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13px; color: var(--weee-text-secondary); cursor: pointer;
+  text-decoration: none; white-space: nowrap;
+  transition: color 0.15s;
+}
+.nav-btn:hover { color: var(--weee-brand); }
+.nav-btn svg { width: 20px; height: 20px; }
+.nav-btn.cart-btn { position: relative; }
+.cart-badge {
+  position: absolute; top: -6px; right: -8px;
+  background: var(--weee-red); color: #fff;
+  font-size: 10px; font-weight: 700;
+  width: 16px; height: 16px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ===== Sub Nav ===== */
+.sub-nav {
+  height: var(--subnav-height);
+  background: var(--weee-white);
+  border-bottom: 1px solid var(--weee-border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 0;
+  overflow-x: auto;
+}
+.sub-nav::-webkit-scrollbar { display: none; }
+.sub-nav a {
+  padding: 0 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: var(--weee-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.sub-nav a:hover { color: var(--weee-brand); }
+.sub-nav a.active {
+  color: var(--weee-brand);
+  font-weight: 600;
+  border-bottom-color: var(--weee-teal);
+}
+.sub-nav a .tag {
+  margin-left: 4px;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.sub-nav a .tag.hot { background: #ffeded; color: var(--weee-red); }
+.sub-nav a .tag.new { background: #c6e5ff; color: var(--weee-brand); }
+
+/* ===== Body Layout ===== */
+.body-layout {
+  display: flex;
+  height: calc(100vh - var(--topbar-height) - var(--navbar-height) - var(--subnav-height));
+}
+
+/* ===== Left Sidebar ===== */
+.left-sidebar {
+  width: var(--sidebar-width);
+  background: var(--weee-bg);
+  border-right: 1px solid var(--weee-border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 4px 0;
+}
+.left-sidebar::-webkit-scrollbar { width: 0; }
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--weee-text-secondary);
+  cursor: pointer;
+  transition: all 0.12s;
+  gap: 8px;
+  margin: 0 6px;
+  border-radius: 8px;
+}
+.sidebar-item:hover { background: var(--weee-white); color: var(--weee-text); }
+.sidebar-item.active { background: var(--weee-white); color: var(--weee-brand); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.sidebar-item svg { width: 16px; height: 16px; color: var(--weee-text-muted); flex-shrink: 0; }
+.sidebar-item .cat-icon { width: 24px; height: 24px; flex-shrink: 0; object-fit: contain; }
+.sidebar-item .item-tag {
+  margin-left: auto;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.sidebar-item .item-tag.hot { background: var(--weee-red); color: #fff; }
+.sidebar-item .item-tag.new { background: var(--weee-teal); color: #fff; }
+
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.main-content::-webkit-scrollbar { width: 6px; }
+.main-content::-webkit-scrollbar-thumb { background: #c7cede; border-radius: 3px; }
+
+/* Banner */
+.hero-banner {
+  width: 100%;
+  border-radius: var(--sku-radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/5;
+}
+.hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.banner-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+.banner-dots span {
+  width: 6px; height: 6px; border-radius: 3px;
+  background: #ffffff50;
+  transition: all 0.2s;
+}
+.banner-dots span.active { background: #fff; width: 18px; }
+
+/* Section */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+.section-header h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--weee-text);
+}
+.section-header a {
+  font-size: 13px;
+  color: var(--weee-teal);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.section-header a:hover { text-decoration: underline; }
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--grid-gap);
+}
+.product-card {
+  background: var(--weee-white);
+  border-radius: var(--sku-radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.15s;
+  border: 1px solid var(--weee-border-light);
+}
+.product-card:hover {
+  box-shadow: 0 6px 20px rgba(7,16,26,0.08);
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+.product-card .card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--weee-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.product-card .card-img img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+.product-card:hover .card-img img { transform: scale(1.04); }
+.product-card .card-img .discount-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--weee-red);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.product-card .card-body {
+  padding: 8px 12px 12px;
+}
+.product-card .card-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--weee-text);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
+}
+.product-card .card-weight {
+  font-size: 11px;
+  color: var(--weee-text-subdued);
+  margin-top: 3px;
+}
+.product-card .card-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.product-card .card-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--weee-price-red);
+}
+.product-card .card-price .cent { font-size: 13px; }
+.product-card .card-original {
+  font-size: 12px;
+  color: var(--weee-text-subdued);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+.product-card .add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--weee-white);
+  border: 1px solid var(--weee-border);
+  color: var(--weee-brand);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.product-card .add-btn:hover { background: var(--weee-bg); transform: scale(1.08); border-color: var(--weee-brand); }
+
+/* ===== Chat Panel ===== */
+.chat-panel {
+  width: var(--chat-width);
+  background: var(--weee-white);
+  border-right: 1px solid var(--weee-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.chat-header {
+  height: 54px;
+  background: linear-gradient(135deg, var(--weee-brand) 0%, var(--weee-brand-dark) 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.chat-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.chat-avatar svg { width: 18px; height: 18px; color: #fff; }
+.chat-header-info { flex: 1; }
+.chat-header-info h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+.chat-header-info span {
+  font-size: 11px;
+  color: #c6e5ff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chat-header-info span::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 3px;
+  background: #4ade80;
+  display: inline-block;
+}
+.chat-close {
+  background: none; border: none; color: #ffffff60;
+  cursor: pointer; font-size: 16px;
+  transition: color 0.15s;
+}
+.chat-close:hover { color: #fff; }
+
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--weee-surface);
+}
+.chat-body::-webkit-scrollbar { width: 4px; }
+.chat-body::-webkit-scrollbar-thumb { background: #c7cede; border-radius: 2px; }
+
+.msg-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.msg-row.user { justify-content: flex-end; }
+.msg-avatar {
+  width: 28px; height: 28px; border-radius: 999px;
+  background: var(--weee-brand);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.msg-avatar svg { width: 14px; height: 14px; color: #fff; }
+.msg-bubble {
+  max-width: 280px;
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--weee-text);
+  background: var(--weee-white);
+  border-radius: 2px 12px 12px 12px;
+  box-shadow: 0 1px 4px rgba(7,16,26,0.06);
+}
+.msg-row.user .msg-bubble {
+  background: var(--weee-teal);
+  color: #fff;
+  border-radius: 12px 2px 12px 12px;
+  box-shadow: 0 1px 4px rgba(0,178,234,0.25);
+}
+.msg-time {
+  font-size: 10px;
+  color: var(--weee-text-subdued);
+  margin-top: 4px;
+}
+.msg-row.user .msg-time { color: var(--weee-text-subdued); text-align: right; }
+
+/* Chat product rec */
+.chat-rec-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--weee-surface);
+  margin-top: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid var(--weee-border-light);
+}
+.chat-rec-card:hover { background: var(--weee-bg); border-color: var(--weee-teal); }
+.chat-rec-card.orange { background: #fff8f2; border-color: #ffe8d1; }
+.chat-rec-card.orange:hover { border-color: var(--weee-teal); }
+.chat-rec-img {
+  width: 44px; height: 44px; border-radius: 8px;
+  background: var(--weee-white);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+  border: 1px solid var(--weee-border-light);
+}
+.chat-rec-img img { width: 100%; height: 100%; object-fit: contain; }
+.chat-rec-info { flex: 1; min-width: 0; }
+.chat-rec-info .rec-name {
+  font-size: 12px; font-weight: 600; color: var(--weee-text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chat-rec-info .rec-price { font-size: 12px; font-weight: 700; color: var(--weee-price-red); margin-top: 1px; }
+.chat-rec-btn {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--weee-teal);
+  color: #fff;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.chat-rec-btn:hover { background: var(--weee-teal-hover); }
+
+.chat-footer {
+  border-top: 1px solid var(--weee-border);
+  background: var(--weee-white);
+}
+.quick-actions {
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px 4px;
+  overflow-x: auto;
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+.quick-action {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--weee-surface);
+  border: 1px solid var(--weee-border);
+  font-size: 12px;
+  color: var(--weee-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.quick-action:hover { background: var(--weee-bg); border-color: var(--weee-teal); color: var(--weee-teal-dark); }
+.chat-input-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px 14px;
+  gap: 8px;
+}
+.chat-input {
+  flex: 1;
+  height: 38px;
+  background: var(--weee-surface);
+  border-radius: 999px;
+  border: 1px solid var(--weee-border);
+  padding: 0 14px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  color: var(--weee-text);
+  transition: all 0.2s;
+}
+.chat-input:focus { border-color: var(--weee-teal); background: #fff; box-shadow: 0 0 0 3px rgba(0,178,234,0.12); }
+.chat-input::placeholder { color: var(--weee-text-subdued); }
+.chat-send {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: var(--weee-teal);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.chat-send:hover { background: var(--weee-teal-hover); }
+.chat-send svg { width: 16px; height: 16px; }
+
+/* Package card */
+.chat-package {
+  margin-top: 8px;
+  border: 1px solid var(--weee-border-light);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--weee-white);
+}
+.chat-package-header {
+  background: linear-gradient(135deg, #fff8f0 0%, #fff2e5 100%);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #ffe8d1;
+}
+.chat-package-header .pkg-icon { font-size: 15px; }
+.chat-package-header .pkg-title { font-size: 12px; font-weight: 700; color: var(--weee-text); }
+.chat-package-header .pkg-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--weee-red);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.chat-package-items { padding: 6px 0; }
+.chat-package-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.chat-package-item .pkg-img {
+  width: 32px; height: 32px; border-radius: 6px;
+  overflow: hidden; flex-shrink: 0; background: var(--weee-surface);
+  border: 1px solid var(--weee-border-light);
+}
+.chat-package-item .pkg-img img { width: 100%; height: 100%; object-fit: contain; }
+.chat-package-item .pkg-name { flex: 1; color: var(--weee-text); line-height: 1.3; }
+.chat-package-item .pkg-price { font-weight: 700; color: var(--weee-price-red); white-space: nowrap; }
+.chat-package-footer {
+  padding: 8px 10px;
+  border-top: 1px solid var(--weee-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat-package-footer .pkg-total {
+  font-size: 12px; color: var(--weee-text-secondary);
+}
+.chat-package-footer .pkg-total b { color: var(--weee-price-red); font-size: 15px; }
+.chat-package-footer .pkg-savings {
+  font-size: 10px;
+  color: #22c55e;
+  font-weight: 600;
+}
+.chat-addall-btn {
+  width: 100%;
+  margin-top: 6px;
+  padding: 9px;
+  border-radius: 8px;
+  background: var(--weee-teal);
+  color: #fff;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.chat-addall-btn:hover { background: var(--weee-teal-hover); }
+
+/* Video thumbnail */
+.chat-video {
+  margin-top: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: #000;
+  aspect-ratio: 16/9;
+}
+.chat-video img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.chat-video:hover img { opacity: 0.7; }
+.chat-video .video-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s;
+}
+.chat-video:hover .video-play { transform: translate(-50%, -50%) scale(1.1); }
+.chat-video .video-play svg { width: 18px; height: 18px; color: var(--weee-teal); margin-left: 2px; }
+.chat-video .video-duration {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.chat-video .video-label {
+  position: absolute;
+  bottom: 8px; left: 8px;
+  background: var(--weee-teal);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: flex; align-items: center; gap: 3px;
+}
+
+/* Agent suggestion bubble */
+.chat-suggest {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #eafaff 100%);
+  border: 1px solid #a9ebff;
+  font-size: 12px;
+  color: var(--weee-text);
+  line-height: 1.5;
+}
+.chat-suggest .suggest-title {
+  font-weight: 700;
+  color: var(--weee-teal-dark);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chat-suggest-btns {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.chat-suggest-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  border: none;
+}
+.chat-suggest-btn.primary {
+  background: var(--weee-teal);
+  color: #fff;
+}
+.chat-suggest-btn.primary:hover { background: var(--weee-teal-hover); }
+.chat-suggest-btn.secondary {
+  background: var(--weee-white);
+  color: var(--weee-teal-dark);
+  border: 1px solid #a9ebff;
+}
+.chat-suggest-btn.secondary:hover { background: #eafaff; }
+
+</style>
+</head>
+<body>
+
+<!-- Top Promo Bar -->
+<div class="top-promo">
+  <span>新人前2单共可享 <b>$20</b> 优惠 &nbsp;|&nbsp; 满 $35 免运费</span>
+  <button class="promo-cta">立即领取</button>
+</div>
+
+<!-- Main Nav -->
+<div class="main-nav">
+  <div class="logo"><img src="https://static.weeecdn.com/main-dweb/_next/static/media/weee-dark-blue.87d88fe4.svg" alt="Weee! logo"></div>
+  <div class="search-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="搜索商品、品牌或分类">
+  </div>
+  <div class="nav-right">
+    <a class="nav-btn" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      下载App
+    </a>
+    <a class="nav-btn" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </a>
+    <a class="nav-btn cart-btn" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge">3</span>
+    </a>
+  </div>
+</div>
+
+<!-- Sub Nav -->
+<div class="sub-nav">
+  <a href="#" class="active">特价精选 <span class="tag hot">HOT</span></a>
+  <a href="#">排行榜</a>
+  <a href="#">寻味清明</a>
+  <a href="#">火锅</a>
+  <a href="#">EBT</a>
+  <a href="#">美妆节 <span class="tag new">NEW</span></a>
+  <a href="#">3月上新</a>
+  <a href="#">餐馆卤味</a>
+  <a href="#">现烤烘焙</a>
+</div>
+
+<!-- Body -->
+<div class="body-layout">
+  <!-- Chat Panel -->
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
+      </div>
+      <div class="chat-header-info">
+        <h4>Cultural Context Agent</h4>
+        <span>在线 · 懂你的文化背景</span>
+      </div>
+      <button class="chat-close">✕</button>
+    </div>
+
+    <div class="chat-body" id="chatBody"></div>
+
+    <div class="chat-footer">
+      <div class="quick-actions">
+        <button class="quick-action">🍖 韩式烤肉套餐</button>
+        <button class="quick-action">🎬 韩剧同款美食</button>
+        <button class="quick-action">🍲 一人食推荐</button>
+        <button class="quick-action">🎉 派对拼盘</button>
+      </div>
+      <div class="chat-input-bar">
+        <input type="text" class="chat-input" id="chatInput" placeholder="输入消息...">
+        <button class="chat-send" id="chatSendBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left Sidebar -->
+  <div class="left-sidebar">
+    <div class="sidebar-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      特价精选
+      <span class="item-tag hot">HOT</span>
+    </div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Fruits_ch_inactive.png" alt="">水果</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Vegetables_ch_inactive.png" alt="">蔬菜</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Meat_ch_inactive.png" alt="">肉类</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seafood_ch_inactive.png" alt="">海鲜</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Frozen_ch_inactive.png" alt="">冷冻食品</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Instant_ch_inactive.png" alt="">方便食品</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Bakery_ch_inactive.png" alt="">烘焙</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Snacks_ch_inactive.png" alt="">零食</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Beverages_ch_inactive.png" alt="">饮料</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Dairy_Eggs_ch_inactive.png" alt="">乳制品 & 蛋</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Tofu_Vegan_ch_inactive.png" alt="">豆腐 & 素食</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seasoning_ch_inactive.png" alt="">调料</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Canned_ch_inactive.png" alt="">罐头 & 腌制品</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Dry_Goods_ch_inactive.png" alt="">干货 & 米面</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Self_Care_ch_inactive.png" alt="">个人护理</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Household_ch_inactive.png" alt="">日用百货</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Alcohol_ch_inactive.png" alt="">酒类</div>
+    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Health_ch_inactive.png" alt="">健康保健</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <img src="https://img06.weeecdn.com/mkt/banner/166/222/4C613148D44BEBB.jpeg" alt="Weee! Banner">
+      <div class="banner-dots">
+        <span class="active"></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Section: 精挑细选 -->
+    <div class="section-header">
+      <h3>精挑细选 为您推荐</h3>
+      <a href="#">查看全部 &gt;</a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/049/942/3591F49E9CBC7BCE.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">泰国金枕头榴莲 冷冻去壳</div>
+          <div class="card-weight">约300g/盒</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$12<span class="cent">.99</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img">
+          <span class="discount-tag">-20%</span>
+          <img src="https://img06.weeecdn.com/product/image/659/968/573FC6AF9F9C81.png!c560x0_q80.auto" alt="">
+        </div>
+        <div class="card-body">
+          <div class="card-name">上海青 Baby Bok Choy</div>
+          <div class="card-weight">约1磅</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$1<span class="cent">.99</span></span><span class="card-original">$2.49</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/634/350/3CAC5D086DFC2199.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">挪威三文鱼刺身 冰鲜切片</div>
+          <div class="card-weight">约200g/盒</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$13<span class="cent">.99</span></span><span class="card-original">$16.99</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/251/119/1C7260B6CA96DD95.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">澳洲和牛肥牛卷 火锅专用</div>
+          <div class="card-weight">约340g/盒</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$16<span class="cent">.99</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img">
+          <span class="discount-tag">特价</span>
+          <img src="https://img06.weeecdn.com/product/image/116/457/660084F9BE73E214.jpeg!c560x0_q80.auto" alt="">
+        </div>
+        <div class="card-body">
+          <div class="card-name">日本爱媛果冻橙 5个装</div>
+          <div class="card-weight">约2磅</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$8<span class="cent">.99</span></span><span class="card-original">$11.99</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: 人气热卖 -->
+    <div class="section-header">
+      <h3>人气热卖</h3>
+      <a href="#">查看全部 &gt;</a>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/089/590/1612F74D5213788E.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">湾仔码头 猪肉白菜水饺</div>
+          <div class="card-weight">720g/袋</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$8<span class="cent">.49</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/563/194/3A0C0581010EFBD5.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">康师傅 红烧牛肉面 5连包</div>
+          <div class="card-weight">5×103g</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$5<span class="cent">.99</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/255/984/8D5687E26E1B649.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">海底捞 番茄火锅底料</div>
+          <div class="card-weight">200g/包</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$3<span class="cent">.49</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img">
+          <span class="discount-tag">-15%</span>
+          <img src="https://img06.weeecdn.com/product/image/466/110/4A21F21E3EB379B.png!c560x0_q80.auto" alt="">
+        </div>
+        <div class="card-body">
+          <div class="card-name">元気森林 白桃气泡水 6罐装</div>
+          <div class="card-weight">6×330ml</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$7<span class="cent">.99</span></span><span class="card-original">$9.49</span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/290/932/6CCDDD301A8E2EFC.png!c560x0_q80.auto" alt=""></div>
+        <div class="card-body">
+          <div class="card-name">日式抹茶千层蛋糕</div>
+          <div class="card-weight">约450g/个</div>
+          <div class="card-price-row">
+            <div><span class="card-price">$15<span class="cent">.99</span></span></div>
+            <button class="add-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+// Populate chat messages on load
+const chatBody = document.getElementById('chatBody');
+const botSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>';
+
+chatBody.innerHTML = `
+  <div class="msg-row">
+    <div class="msg-avatar">${botSvg}</div>
+    <div>
+      <div class="msg-bubble">안녕하세요！我是你的 Cultural Context Agent 👋<br>我能根据你的文化背景和饮食偏好，帮你配齐地道的食材。聊聊你想做什么吧！</div>
+      <div class="msg-time">20:15</div>
+    </div>
+  </div>
+  <div class="msg-row user">
+    <div>
+      <div class="msg-bubble">昨天看了《舌尖上的韩国烤肉》，好馋啊！我想这周末请3个朋友来家里搞一顿正宗韩式烤肉，4个人的量，帮我配齐食材！</div>
+      <div class="msg-time" style="text-align:right">20:16</div>
+    </div>
+  </div>
+  <div class="msg-row">
+    <div class="msg-avatar">${botSvg}</div>
+    <div>
+      <div class="msg-bubble">
+        好的！韩式烤肉（한국 바비큐）我太熟了 🔥 帮你配了一套<b>4人份</b>的完整食材包：
+        <div class="chat-package">
+          <div class="chat-package-header">
+            <span class="pkg-icon">🥩</span>
+            <span class="pkg-title">韩式烤肉 4人套餐</span>
+            <span class="pkg-badge">省 $12.50</span>
+          </div>
+          <div class="chat-package-items">
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/336/529/48779E33DFAAF783.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">韩式烤肉牛五花 切片 1.5lb</span>
+              <span class="pkg-price">$18.99</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/008/664/5D67783E9D2B0F24.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">CJ 韩式牛肉腌料 840g</span>
+              <span class="pkg-price">$7.49</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/145/350/324FB7746D1E6323.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">新鲜生菜 罗马生菜 2颗</span>
+              <span class="pkg-price">$3.49</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/063/050/4E9B5390F271C093.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">新鲜紫苏叶 1束</span>
+              <span class="pkg-price">$2.99</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/006/558/77264DBC8651F46D.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">蒜片 去皮切片 200g</span>
+              <span class="pkg-price">$3.29</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/066/207/102DD6A52FBBF778.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">CJ 包饭酱 쌈장 500g</span>
+              <span class="pkg-price">$4.99</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/035/348/400E35E067985CAE.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">韩式石锅 拌饭专用 1个</span>
+              <span class="pkg-price">$15.99</span>
+            </div>
+            <div class="chat-package-item">
+              <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/543/753/1E119A53226AA46F.png!c560x0_q80.auto" alt=""></div>
+              <span class="pkg-name">真露 韩国烧酒 360ml × 2</span>
+              <span class="pkg-price">$8.98</span>
+            </div>
+          </div>
+          <div class="chat-package-footer">
+            <div>
+              <div class="pkg-total">套餐价 <b>$66.21</b></div>
+              <div class="pkg-savings">✨ 比单独购买省 $12.50</div>
+            </div>
+          </div>
+        </div>
+        <button class="chat-addall-btn" id="addAllBtn">🛒 一键全部加入购物车</button>
+        <div class="chat-video">
+          <img src="https://img06.weeecdn.com/mkt/banner/166/222/4C613148D44BEBB.jpeg" alt="Tutorial">
+          <div class="video-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <span class="video-duration">3:12</span>
+          <span class="video-label">📹 烤肉教程</span>
+        </div>
+      </div>
+      <div class="msg-time">20:16</div>
+    </div>
+  </div>
+  <div class="msg-row">
+    <div class="msg-avatar">${botSvg}</div>
+    <div>
+      <div class="chat-suggest">
+        <div class="suggest-title">💡 Agent 建议</div>
+        正宗韩式烤肉晚餐通常会配一个<b>海鲜葱饼（해물파전）</b>当前菜，要不要加上？我帮你把配料也列好了～
+        <div class="chat-suggest-btns">
+          <button class="chat-suggest-btn primary" id="addPancakeBtn">好的，加上！</button>
+          <button class="chat-suggest-btn secondary">不用了</button>
+        </div>
+      </div>
+      <div class="msg-time">20:17</div>
+    </div>
+  </div>
+`;
+
+// Sidebar hover effect
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Add to cart animation
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const badge = document.querySelector('.cart-badge');
+    badge.textContent = parseInt(badge.textContent) + 1;
+    btn.style.transform = 'scale(1.2)';
+    setTimeout(() => btn.style.transform = '', 150);
+  });
+});
+
+// Chat interactive buttons (event delegation)
+chatBody.addEventListener('click', (e) => {
+  // Add all to cart
+  const addAllBtn = e.target.closest('#addAllBtn');
+  if (addAllBtn && !addAllBtn.classList.contains('added')) {
+    const badge = document.querySelector('.cart-badge');
+    badge.textContent = parseInt(badge.textContent) + 8;
+    addAllBtn.innerHTML = '✅ 已全部加入购物车（8件）';
+    addAllBtn.style.background = '#22c55e';
+    addAllBtn.classList.add('added');
+    return;
+  }
+
+  // Add pancake suggestion
+  const pancakeBtn = e.target.closest('#addPancakeBtn');
+  if (pancakeBtn && !pancakeBtn.classList.contains('added')) {
+    pancakeBtn.textContent = '已添加 ✓';
+    pancakeBtn.style.background = '#22c55e';
+    pancakeBtn.classList.add('added');
+    // Show pancake ingredients as new message
+    setTimeout(() => {
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+      row.innerHTML = `<div class="msg-avatar">${botSvg}</div><div>
+        <div class="msg-bubble">
+          好的！海鲜葱饼食材已加上 🎉
+          <div class="chat-package" style="margin-top:8px">
+            <div class="chat-package-header" style="background:linear-gradient(135deg,#f0f9ff,#eafaff);border-color:#a9ebff">
+              <span class="pkg-icon">🥞</span>
+              <span class="pkg-title">海鲜葱饼 前菜配料</span>
+            </div>
+            <div class="chat-package-items">
+              <div class="chat-package-item">
+                <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/008/132/59EB97832F426281.png!c560x0_q80.auto" alt=""></div>
+                <span class="pkg-name">韩式海鲜煎饼粉 500g</span>
+                <span class="pkg-price">$4.49</span>
+              </div>
+              <div class="chat-package-item">
+                <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/552/526/BA4604DF0046895.png!c560x0_q80.auto" alt=""></div>
+                <span class="pkg-name">冷冻综合海鲜 虾仁鱿鱼</span>
+                <span class="pkg-price">$8.99</span>
+              </div>
+              <div class="chat-package-item">
+                <div class="pkg-img"><img src="https://img06.weeecdn.com/product/image/274/166/7548635AFEC1D4E0.png!c560x0_q80.auto" alt=""></div>
+                <span class="pkg-name">新鲜小葱 1束</span>
+                <span class="pkg-price">$1.49</span>
+              </div>
+            </div>
+            <div class="chat-package-footer">
+              <div>
+                <div class="pkg-total">小计 <b>$14.97</b></div>
+              </div>
+            </div>
+          </div>
+          <button class="chat-addall-btn" onclick="this.innerHTML='✅ 已加入购物车（3件）';this.style.background='#22c55e';document.querySelector('.cart-badge').textContent=parseInt(document.querySelector('.cart-badge').textContent)+3">🛒 加入购物车</button>
+          <div style="margin-top:8px;font-size:12px;color:var(--weee-text-secondary);line-height:1.5;">
+            📦 总计 <b style="color:var(--weee-price-red)">$81.18</b>（含烤肉+前菜），满 $35 免运费 ✓<br>
+            祝你和朋友们周末烤肉愉快！🥳🇰🇷
+          </div>
+        </div>
+        <div class="msg-time">${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}</div>
+      </div>`;
+      chatBody.appendChild(row);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 600);
+    return;
+  }
+
+  // Dismiss pancake
+  const dismissBtn = e.target.closest('.chat-suggest-btn.secondary');
+  if (dismissBtn) {
+    const suggest = dismissBtn.closest('.chat-suggest');
+    suggest.innerHTML = '<span style="color:var(--weee-text-muted);font-size:12px">好的，已跳过前菜推荐 ✓</span>';
+  }
+});
+
+// Chat send
+const chatInput = document.getElementById('chatInput');
+const chatSendBtn = document.getElementById('chatSendBtn');
+
+function sendMsg() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  const row = document.createElement('div');
+  row.className = 'msg-row user';
+  row.innerHTML = `<div><div class="msg-bubble">${text}</div><div class="msg-time" style="text-align:right">${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
+  chatBody.appendChild(row);
+  chatInput.value = '';
+  chatBody.scrollTop = chatBody.scrollHeight;
+  setTimeout(() => {
+    const botRow = document.createElement('div');
+    botRow.className = 'msg-row';
+    botRow.innerHTML = `<div class="msg-avatar">${botSvg}</div><div><div class="msg-bubble">好的，让我为您查找相关商品... 🔍<br>请稍等一下~</div><div class="msg-time">${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
+    chatBody.appendChild(botRow);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }, 800);
+}
+
+chatSendBtn.addEventListener('click', sendMsg);
+chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMsg(); });
+
+document.querySelectorAll('.quick-action').forEach(btn => {
+  btn.addEventListener('click', () => {
+    chatInput.value = btn.textContent.replace(/^..\s*/, '');
+    sendMsg();
+  });
+});
+</script>
+</body>
+</html>
