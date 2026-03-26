@@ -32,7 +32,7 @@
   --weee-text-secondary: #52667d; /* shade-cool-base-7 (surface-100-fg-minor) */
   --weee-text-muted: #758296;     /* shade-cool-base-5 */
   --weee-text-subdued: #9299ae;   /* shade-cool-base-4 */
-  --sidebar-width: 230px;
+  --sidebar-width: 52px;
   --chat-width: 380px;
   --topbar-height: 42px;
   --navbar-height: 54px;
@@ -207,28 +207,22 @@ body {
 .sidebar-item {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  font-size: 13px;
+  justify-content: center;
+  padding: 10px 0;
+  font-size: 0;
   color: var(--weee-text-secondary);
   cursor: pointer;
   transition: all 0.12s;
-  gap: 8px;
-  margin: 0 6px;
-  border-radius: 8px;
+  gap: 0;
+  border-radius: 0;
 }
 .sidebar-item:hover { background: var(--weee-white); color: var(--weee-text); }
 .sidebar-item.active { background: var(--weee-white); color: var(--weee-brand); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-.sidebar-item svg { width: 16px; height: 16px; color: var(--weee-text-muted); flex-shrink: 0; }
+.sidebar-item svg { width: 20px; height: 20px; color: var(--weee-text-muted); flex-shrink: 0; }
+.sidebar-item.active svg { color: var(--weee-brand); }
 .sidebar-item .cat-icon { width: 24px; height: 24px; flex-shrink: 0; object-fit: contain; }
-.sidebar-item .item-tag {
-  margin-left: auto;
-  font-size: 9px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-weight: 700;
-}
-.sidebar-item .item-tag.hot { background: var(--weee-red); color: #fff; }
-.sidebar-item .item-tag.new { background: var(--weee-teal); color: #fff; }
+.sidebar-item .sidebar-label { display: none; }
+.sidebar-item .item-tag { display: none; }
 
 /* ===== Main Content ===== */
 .main-content {
@@ -296,7 +290,7 @@ body {
 /* Product Grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--grid-gap);
 }
 .product-card {
@@ -799,10 +793,6 @@ body {
   </div>
   <div class="nav-right">
     <a class="nav-btn" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-      下载App
-    </a>
-    <a class="nav-btn" href="#">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </a>
     <a class="nav-btn cart-btn" href="#">
@@ -834,8 +824,8 @@ body {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
       </div>
       <div class="chat-header-info">
-        <h4>Cultural Context Agent</h4>
-        <span>在线 · 懂你的文化背景</span>
+        <h4>Weee仔</h4>
+        <span>在线</span>
       </div>
       <button class="chat-close">✕</button>
     </div>
@@ -860,29 +850,23 @@ body {
 
   <!-- Left Sidebar -->
   <div class="left-sidebar">
-    <div class="sidebar-item active">
+    <div class="sidebar-item active" title="特价精选">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      特价精选
-      <span class="item-tag hot">HOT</span>
     </div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Fruits_ch_inactive.png" alt="">水果</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Vegetables_ch_inactive.png" alt="">蔬菜</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Meat_ch_inactive.png" alt="">肉类</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seafood_ch_inactive.png" alt="">海鲜</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Frozen_ch_inactive.png" alt="">冷冻食品</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Instant_ch_inactive.png" alt="">方便食品</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Bakery_ch_inactive.png" alt="">烘焙</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Snacks_ch_inactive.png" alt="">零食</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Beverages_ch_inactive.png" alt="">饮料</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Dairy_Eggs_ch_inactive.png" alt="">乳制品 & 蛋</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Tofu_Vegan_ch_inactive.png" alt="">豆腐 & 素食</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seasoning_ch_inactive.png" alt="">调料</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Canned_ch_inactive.png" alt="">罐头 & 腌制品</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Dry_Goods_ch_inactive.png" alt="">干货 & 米面</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Self_Care_ch_inactive.png" alt="">个人护理</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Household_ch_inactive.png" alt="">日用百货</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Alcohol_ch_inactive.png" alt="">酒类</div>
-    <div class="sidebar-item"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Health_ch_inactive.png" alt="">健康保健</div>
+    <div class="sidebar-item" title="水果"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Fruits_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="蔬菜"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Vegetables_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="肉类"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Meat_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="海鲜"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seafood_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="冷冻食品"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Frozen_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="方便食品"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Instant_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="烘焙"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Bakery_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="零食"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Snacks_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="饮料"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Beverages_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="乳制品 & 蛋"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Dairy_Eggs_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="豆腐 & 素食"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Tofu_Vegan_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="调料"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Seasoning_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="酒类"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Alcohol_ch_inactive.png" alt=""></div>
+    <div class="sidebar-item" title="健康保健"><img class="cat-icon" src="https://img06.weeecdn.com/category/image/general_2025_v3/ch/Health_ch_inactive.png" alt=""></div>
   </div>
 
   <!-- Main Content -->
@@ -948,20 +932,6 @@ body {
           </div>
         </div>
       </div>
-      <div class="product-card">
-        <div class="card-img">
-          <span class="discount-tag">特价</span>
-          <img src="https://img06.weeecdn.com/product/image/116/457/660084F9BE73E214.jpeg!c560x0_q80.auto" alt="">
-        </div>
-        <div class="card-body">
-          <div class="card-name">日本爱媛果冻橙 5个装</div>
-          <div class="card-weight">约2磅</div>
-          <div class="card-price-row">
-            <div><span class="card-price">$8<span class="cent">.99</span></span><span class="card-original">$11.99</span></div>
-            <button class="add-btn">+</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Section: 人气热卖 -->
@@ -1013,17 +983,6 @@ body {
           <div class="card-weight">6×330ml</div>
           <div class="card-price-row">
             <div><span class="card-price">$7<span class="cent">.99</span></span><span class="card-original">$9.49</span></div>
-            <button class="add-btn">+</button>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="card-img"><img src="https://img06.weeecdn.com/product/image/290/932/6CCDDD301A8E2EFC.png!c560x0_q80.auto" alt=""></div>
-        <div class="card-body">
-          <div class="card-name">日式抹茶千层蛋糕</div>
-          <div class="card-weight">约450g/个</div>
-          <div class="card-price-row">
-            <div><span class="card-price">$15<span class="cent">.99</span></span></div>
             <button class="add-btn">+</button>
           </div>
         </div>
